@@ -1,0 +1,51 @@
+<main>
+  <h2> Plan your day!</h2>
+  <h3> User: Ivan Ivanov. Count of task {{ countTask }}</h3>
+
+
+  <div>
+    <input type="text" [(ngModel)]="newTask" name="newTask">
+    <input type="button" value="add" class="btn btn-success" (click)="addTask(newTask)">
+
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Task</th>
+        <th scope="col">Check</th>
+        <th scope="col">DONE/IN PROGRESS</th>
+        <th scope="col">Edit</th>
+        <th scope="col">DELETE</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of arrTasks; let i = index">
+        <td> {{ i+1 }} </td>
+        <td> {{ task.taskName }} </td>
+
+        <td>
+          <input type="checkbox" (click)="changeCheckbox($event, i)">
+        </td>
+  
+        <td> {{ task.currentStatus }} </td>
+
+        <td>
+          <input type="button" value="edit" class="btn btn-warning" (click)="editTask(task)">
+        </td>
+
+        <td>
+          <input *ngIf="task.checkboxStatus" (click)="deteteTask(task)" type="button" value="delete"
+            class="btn btn-danger">
+          <input *ngIf="!task.checkboxStatus" type="button" value="delete" class="btn btn-danger" disabled>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div [hidden]='showEditField'>
+    <input type="text" [(ngModel)]="editChekedTask" name="editChekedTask">
+    <input type="button" value="save" class="btn btn-success" (click)="saveTask()">
+
+  </div>
+</main>
